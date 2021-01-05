@@ -9,6 +9,7 @@ from .operators.activation import QLinearActivation
 from .operators.binary_op import QLinearBinaryOp
 from .operators.maxpool import QMaxPool
 from .operators.gavgpool import QGlobalAveragePool
+from .operators.pad import QPad
 from. operators.lstm import LSTMQuant
 
 CommonOpsRegistry = {"Gather": GatherQuant, "EmbedLayerNormalization": EmbedLayerNormalizationQuant}
@@ -32,6 +33,7 @@ QLinearOpsRegistry = {
     "Sigmoid" : QLinearActivation,
     "MaxPool": QMaxPool,
     "GlobalAveragePool": QGlobalAveragePool,
+    "Pad" : QPad,
 }
 QLinearOpsRegistry.update(CommonOpsRegistry)
 
