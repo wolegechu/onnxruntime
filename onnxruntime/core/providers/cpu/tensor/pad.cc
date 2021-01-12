@@ -225,7 +225,11 @@ static Status PadImpl(OpKernelContext* ctx,
 
   // Reshape input dims
   std::vector<int64_t> reshaped_input_dims;
-  FlattenInnerShape(output_dims, pads, slices, reshaped_input_dims);
+  if (mode == Mode::Constant) {
+    FlattenInnerShape(output_dims, pads, slices, reshaped_input_dims);
+  } else {
+    reshaped_input_dims = output_dims;
+  }
 
   // Reshape padding
   size_t new_dims_count = reshaped_input_dims.size();
