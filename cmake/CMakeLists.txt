@@ -692,10 +692,11 @@ set(onnxruntime_EXTERNAL_LIBRARIES onnx onnx_proto ${PROTOBUF_LIB} re2::re2)
 
 set(onnxruntime_LINK_DIRS )
 if(onnxruntime_USE_CUDA)
+      #TODO: combine onnxruntime_CUDNN_HOME and onnxruntime_CUDA_HOME, assume they are the same
       if (WIN32)
-        list(APPEND onnxruntime_LINK_DIRS ${onnxruntime_CUDNN_HOME}/lib/x64)
+        list(APPEND onnxruntime_LINK_DIRS ${onnxruntime_CUDNN_HOME}/lib/x64 ${onnxruntime_CUDA_HOME}/x64/lib64)
       else()
-        list(APPEND onnxruntime_LINK_DIRS ${onnxruntime_CUDNN_HOME}/lib64)
+        list(APPEND onnxruntime_LINK_DIRS ${onnxruntime_CUDNN_HOME}/lib64 ${onnxruntime_CUDA_HOME}/lib64)
       endif()
 endif()
 
@@ -718,6 +719,7 @@ function(onnxruntime_add_shared_library target_name)
   endif()
 endfunction()
 
+#For plugins that are not linked into other targets but may be loaded dynamically at runtime using dlopen-like functionality.
 function(onnxruntime_add_shared_library_module target_name)
   add_library(${target_name} MODULE ${ARGN})
   target_link_directories(${target_name} PRIVATE ${onnxruntime_LINK_DIRS})
