@@ -380,17 +380,7 @@ jobs:
       workingDirectory: '$(Build.SourcesDirectory)\csharp'
 
   - task: DotNetCoreCLI@2
-    displayName: 'Test C#'
-    condition: and(succeeded(), eq('${{ parameters.RunOnnxRuntimeTests }}', true))
-    inputs:
-        command: test
-        projects: '$(Build.SourcesDirectory)\csharp\test\Microsoft.ML.OnnxRuntime.Tests\Microsoft.ML.OnnxRuntime.Tests.csproj'
-        configuration: RelWithDebInfo
-        arguments: '--configuration RelWithDebInfo -p:Platform="Any CPU" -p:OnnxRuntimeBuildDirectory="$(Build.BinariesDirectory)" -p:OrtPackageId=$(OrtPackageId)'
-        workingDirectory: '$(Build.SourcesDirectory)\csharp'
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Build C#'
+    displayName: 'Build Nuget Packages'
     inputs:
       command: build
       projects: '$(Build.SourcesDirectory)\csharp\OnnxRuntime.CSharp.proj'
