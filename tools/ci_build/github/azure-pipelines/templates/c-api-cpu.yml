@@ -351,6 +351,11 @@ jobs:
     workingDirectory: '$(Build.BinariesDirectory)/nuget-artifact'
     displayName: 'List artifacts'
 
+  - script: |
+     mklink /D /J models C:\local\models
+    workingDirectory: '$(Build.BinariesDirectory)'
+    displayName: 'Create models link'
+
   - task: NuGetToolInstaller@0
     displayName: Use Nuget 5.7.0
     inputs:
